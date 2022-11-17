@@ -3,8 +3,17 @@
 
 `http://localhost:8080/h2-console`
 
+### Start a DB instance
+
+`docker run --name containers-tutorial-mysql-server -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_USER=miztli -e MYSQL_PASSWORD=4321 -e MYSQL_DATABASE=employees-db -p 3306:3306 -d mysql:8.0`
+
+### Start the application
+
+`mvn spring-boot:run`
+
 ### API Scripts
 
+Create a new user
 ```shell
 curl --location --request POST 'http://localhost:8080/employee' \
 --header 'Content-Type: application/json' \
@@ -13,6 +22,12 @@ curl --location --request POST 'http://localhost:8080/employee' \
     "age": 32,
     "gender": "MALE"
 }'
+```
+
+Get environment variables
+
+```shell
+curl --location --request GET 'http://localhost:8082/actuator/env'
 ```
 
 ### Containerize application
