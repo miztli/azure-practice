@@ -22,3 +22,7 @@ Deployment AC's:
 ### Start the application
 
 `mvn spring-boot:run`
+
+### Start the environment with docker compose
+
+`docker compose up -d --build`

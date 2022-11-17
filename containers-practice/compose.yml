@@ -26,10 +26,11 @@ services:
       MYSQL_PASSWORD: "4321"
       MYSQL_DATABASE: "employees-db"
     healthcheck:
-      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
-      start_period: 3s
-      timeout: 10s
-      retries: 3
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD || exit 1
+      start_period: 5s
+      interval: 7s
+      timeout: 5s
+      retries: 2
 networks:
   container-practice-network:
     driver: bridge
