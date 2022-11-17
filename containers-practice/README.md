@@ -26,3 +26,5 @@ Deployment AC's:
 ### Start the environment with docker compose
 
 `docker compose up -d --build`
+
+Inspect health-check logs: `docker inspect --format "{{json .State.Health }}" container-name`
