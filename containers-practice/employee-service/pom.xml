@@ -32,6 +32,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
+
+		<!--Enable management endpoints-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<!-- Dependency to report to an external system -->
 		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
