@@ -1,0 +1,34 @@
+version: '2'
+services:
+  employee-service:
+      container_name: employee-service
+      build:
+        context: employee-service
+        dockerfile: Dockerfile
+      image: employee-service:latest
+      ports:
+        - "8082:8082"
+      networks:
+        - container-practice-network
+      environment:
+        DB_HOST: "employee-service-db"
+      depends_on:
+        employee-service-db:
+          condition: service_healthy
+  employee-service-db:
+    container_name: containers-tutorial-mysql-server
+    image: mysql:8.0
+    networks:
+      - container-practice-network
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_USER: "miztli"
+      MYSQL_PASSWORD: "4321"
+      MYSQL_DATABASE: "employees-db"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 3
+networks:
+  container-practice-network:
+    driver: bridge
