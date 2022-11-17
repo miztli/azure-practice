@@ -15,14 +15,6 @@ Deployment AC's:
 - Only _API service_ must be exposed on port 8080 to receive HTTP traffic
 - Deploy to azure using container services or AKS
 
-### Start a DB instance
-
-`docker run --name containers-tutorial-mysql-server -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_USER=miztli -e MYSQL_PASSWORD=4321 -e MYSQL_DATABASE=employees-db -p 3306:3306 -d mysql:8.0`
-
-### Start the application
-
-`mvn spring-boot:run`
-
 ### Start the environment with docker compose
 
 `docker compose up -d --build`
