@@ -1,19 +1,19 @@
 package com.example.springsleuth.controllers;
 
+import com.example.springsleuth.model.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/employee")
 public class UserController {
 
     /**
@@ -22,35 +22,23 @@ public class UserController {
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @Resource
-    private WebClient webClient;
+    private RestTemplate restTemplate;
 
     @Resource
     private IntensiveProcessingService intensiveProcessingService;
 
-    @GetMapping
-    public ResponseEntity<List> findUsers() throws InterruptedException {
-        LOG.info("Getting users list!");
-        final var users = webClient
-                .get()
-                .uri("/users")
-                .exchange()
-                .block()
-                .toEntity(List.class)
-                .block();
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void save(final @RequestBody Employee employee) {
+        LOG.info("Creating new employee");
+        final var requestEntity = new HttpEntity<>(employee);
+        restTemplate.exchange("/employee", HttpMethod.POST, requestEntity, Void.class);
+    }
 
-        LOG.info("Got [{}] users", users.getBody().size());
-        LOG.info("Got headers:");
-        users.getHeaders()
-                .entrySet()
-                .stream()
-                .forEach(header ->
-                        LOG.info("key: [{}] value: [{}]",
-                                header.getKey(),
-                                header.getValue().stream().collect(Collectors.joining(","))));
-        ;
-
+    @GetMapping(value = "/intensive")
+    @ResponseStatus(HttpStatus.OK)
+    public void intensiveProcess() throws InterruptedException {
+        LOG.info("Calling intensive CPU process");
         intensiveProcessingService.cpuIntensiveMethodSimulation();
-
-        return users;
     }
 }

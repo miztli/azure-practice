@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSleuthApplication {
+public class SpringApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSleuthApplication.class, args);
+		SpringApplication.run(SpringApiApplication.class, args);
 	}
 
 }
