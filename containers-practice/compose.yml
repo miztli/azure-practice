@@ -12,6 +12,7 @@ services:
       - container-practice-network
     environment:
       EMPLOYEE_SERVICE_URL: http://employee-service:8082
+      ZIPKIN_SERVICE_URL: http://zipkin-service:9411
   employee-service:
       container_name: employee-service-container
       build:
@@ -22,6 +23,7 @@ services:
         - container-practice-network
       environment:
         DB_HOST: "employee-service-db"
+        ZIPKIN_SERVICE_URL: http://zipkin-service:9411
       depends_on:
         employee-service-db:
           condition: service_healthy
@@ -41,6 +43,16 @@ services:
       interval: 7s
       timeout: 5s
       retries: 2
+  zipkin-service:
+    container_name: zipkin-service-container
+    image: miztli-zipkin-service:latest
+    ports:
+      - "9411:9411"
+    build:
+      context: zipkin-service
+      dockerfile: Dockerfile
+    networks:
+      - container-practice-network
 networks:
   container-practice-network:
     driver: bridge
