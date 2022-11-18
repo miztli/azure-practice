@@ -15,8 +15,16 @@ Deployment AC's:
 - Only _API service_ must be exposed on port 8080 to receive HTTP traffic
 - Deploy to azure using container services or AKS
 
+### Test compose.yml
+
+`docker-compose config`
+
 ### Start the environment with docker compose
 
 `docker compose up -d --build`
 
 Inspect health-check logs: `docker inspect --format "{{json .State.Health }}" container-name`
+
+### Stop the environment with docker compose
+
+`docker-compose down`

@@ -1,13 +1,23 @@
 version: '2'
 services:
+  api-service:
+    container_name: api-service-container
+    build:
+      context: api-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    image: api-service:latest
+    networks:
+      - container-practice-network
+    environment:
+      EMPLOYEE_SERVICE_URL: http://employee-service:8082
   employee-service:
-      container_name: employee-service
+      container_name: employee-service-container
       build:
         context: employee-service
         dockerfile: Dockerfile
       image: employee-service:latest
-      ports:
-        - "8082:8082"
       networks:
         - container-practice-network
       environment:
@@ -16,7 +26,7 @@ services:
         employee-service-db:
           condition: service_healthy
   employee-service-db:
-    container_name: containers-tutorial-mysql-server
+    container_name: mysql-server-container
     image: mysql:8.0
     networks:
       - container-practice-network
