@@ -12,6 +12,8 @@ services:
       - container-practice-network
     environment:
       EMPLOYEE_SERVICE_URL: http://employee-service:8082
+      EMPLOYEE_SERVICE_USERNAME: service
+      EMPLOYEE_SERVICE_PASSWORD: s3rv1c3
       ZIPKIN_SERVICE_URL: http://zipkin-service:9411
   employee-service:
       container_name: employee-service-container
@@ -22,7 +24,9 @@ services:
       networks:
         - container-practice-network
       environment:
-        DB_HOST: "employee-service-db"
+        DB_URL: jdbc:mysql://employee-service-db:3306/employees-db
+        DB_USERNAME: miztli
+        DB_PASSWORD: 4321
         ZIPKIN_SERVICE_URL: http://zipkin-service:9411
       depends_on:
         employee-service-db:
@@ -33,10 +37,10 @@ services:
     networks:
       - container-practice-network
     environment:
-      MYSQL_ROOT_PASSWORD: "1234"
-      MYSQL_USER: "miztli"
-      MYSQL_PASSWORD: "4321"
-      MYSQL_DATABASE: "employees-db"
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: miztli
+      MYSQL_PASSWORD: 4321
+      MYSQL_DATABASE: employees-db
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD || exit 1
       start_period: 5s
