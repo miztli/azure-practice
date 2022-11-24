@@ -28,3 +28,5 @@ Inspect health-check logs: `docker inspect --format "{{json .State.Health }}" co
 ### Stop the environment with docker compose
 
 `docker-compose down`
+
+### [Deploying app to azure cloud](azure-docs.md)

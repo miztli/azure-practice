@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miztli-springboot-mysql-aks-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-service-app
+  template:
+    metadata:
+      labels:
+        app: employee-service-app
+    spec:
+      containers:
+        - name: employee-service-container
+          image: miztlicontainerregistry.azurecr.io/employee-service:v1.0
+          env:
+            - name: DB_URL
+              value: "miztliflexibleserver.private.mysql.database.azure.com"
+            - name: DB_USERNAME
+              value: "miztli"
+            - name: DB_PASSWORD
+              value: "3Du@rdo!#"
+            - name: ZIPKIN_SERVICE_URL
+              value: "http://zipkin-service"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8082
+  selector:
+    app: employee-service-app
