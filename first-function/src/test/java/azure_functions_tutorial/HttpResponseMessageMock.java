@@ -1,4 +1,4 @@
-package azure-functions-tutorial;
+package azure_functions_tutorial;
 
 import com.microsoft.azure.functions.*;
 

@@ -1,4 +1,4 @@
-package azure-functions-tutorial;
+package azure_functions_tutorial;
 
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
@@ -10,6 +10,7 @@ import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
 import java.util.Optional;
+import java.util.logging.*;
 
 /**
  * Azure Functions with HTTP Trigger.
@@ -39,5 +40,27 @@ public class Function {
         } else {
             return request.createResponseBuilder(HttpStatus.OK).body("Hello, " + name).build();
         }
+    }
+
+    @FunctionName("HttpTriggerJavaVersion")
+    public static HttpResponseMessage HttpTriggerJavaVersion(
+            @HttpTrigger(
+                    name = "req",
+                    methods = {HttpMethod.GET, HttpMethod.POST},
+                    authLevel = AuthorizationLevel.ANONYMOUS)
+            HttpRequestMessage<Optional<String>> request,
+            final ExecutionContext executionContext
+    ) {
+        final Logger log = executionContext.getLogger();
+        log.info("Java HTTP Trigger Processed a request");
+
+        final String javaVersion = getJavaVersion();
+
+        log.info("Function - HttpTriggerJavaVersion" + javaVersion);
+        return request.createResponseBuilder(HttpStatus.OK).body("HttpTriggerJavaVersion: " + javaVersion).build();
+    }
+
+    public static String getJavaVersion() {
+        return String.join(" - ", System.getProperty("java.home"), System.getProperty("java.version"));
     }
 }
