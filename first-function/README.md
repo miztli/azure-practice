@@ -22,6 +22,15 @@ mvn clean package
 mvn azure-functions:run
 ```
 
+### Tail the logs (currently only works with windows runtime)
+
+`func azure functionapp logstream <APP_NAME>`
+
+### Clean-up resources
+
+`az group delete --name miztli-resource-group`
+
 ### Reference
 
 - https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-java?tabs=bash%2Cazure-cli%2Cbrowser
+- https://learn.microsoft.com/en-us/azure/azure-functions/functions-create-maven-intellij
