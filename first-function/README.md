@@ -32,5 +32,7 @@ mvn azure-functions:run
 
 ### Reference
 
-- https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-java?tabs=bash%2Cazure-cli%2Cbrowser
-- https://learn.microsoft.com/en-us/azure/azure-functions/functions-create-maven-intellij
+- [create function using azure cli](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-java?tabs=bash%2Cazure-cli%2Cbrowser)
+- [create function using intellij](https://learn.microsoft.com/en-us/azure/azure-functions/functions-create-maven-intellij)
+- [create timer functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=in-process&pivots=programming-language-java)
+- [functions-manually-run-non-http](https://learn.microsoft.com/en-us/azure/azure-functions/functions-manually-run-non-http)

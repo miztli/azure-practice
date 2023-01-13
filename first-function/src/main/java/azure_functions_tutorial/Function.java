@@ -5,9 +5,7 @@ import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
-import com.microsoft.azure.functions.annotation.AuthorizationLevel;
-import com.microsoft.azure.functions.annotation.FunctionName;
-import com.microsoft.azure.functions.annotation.HttpTrigger;
+import com.microsoft.azure.functions.annotation.*;
 
 import java.util.Optional;
 import java.util.logging.*;
@@ -60,7 +58,25 @@ public class Function {
         return request.createResponseBuilder(HttpStatus.OK).body("HttpTriggerJavaVersion: " + javaVersion).build();
     }
 
-    public static String getJavaVersion() {
+    /**
+     * sec - min - hours - day of month - month - day of week - year
+     * https://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm#:~:text=A%20cron%20expression%20is%20a,allowed%20characters%20for%20that%20field.
+      */
+    @FunctionName("ScheduledTriggerJavaVersion")
+    public static void ScheduledTriggerJavaVersion(
+            @TimerTrigger(
+                    name = "req",
+                    schedule = "0/30 * * * * *") String timerInfo,
+            ExecutionContext executionContext) {
+        final Logger log = executionContext.getLogger();
+        log.info("Java Scheduled Trigger is being excecuted");
+
+        final String javaVersion = getJavaVersion();
+
+        log.info("Function - HttpTriggerJavaVersion" + javaVersion);
+    }
+
+    private static String getJavaVersion() {
         return String.join(" - ", System.getProperty("java.home"), System.getProperty("java.version"));
     }
 }
