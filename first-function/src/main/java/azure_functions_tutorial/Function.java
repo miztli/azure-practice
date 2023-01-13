@@ -59,8 +59,7 @@ public class Function {
     }
 
     /**
-     * sec - min - hours - day of month - month - day of week - year
-     * https://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm#:~:text=A%20cron%20expression%20is%20a,allowed%20characters%20for%20that%20field.
+     * {second} {minute} {hour} {day} {month} {day-of-week}
       */
     @FunctionName("ScheduledTriggerJavaVersion")
     public static void ScheduledTriggerJavaVersion(
@@ -69,11 +68,7 @@ public class Function {
                     schedule = "0/30 * * * * *") String timerInfo,
             ExecutionContext executionContext) {
         final Logger log = executionContext.getLogger();
-        log.info("Java Scheduled Trigger is being excecuted");
-
-        final String javaVersion = getJavaVersion();
-
-        log.info("Function - HttpTriggerJavaVersion" + javaVersion);
+        log.info("Timer info: " + timerInfo);
     }
 
     private static String getJavaVersion() {
