@@ -71,6 +71,17 @@ public class Function {
         log.info("Timer info: " + timerInfo);
     }
 
+    @FunctionName("ScheduledTriggerJavaVersionWithWebHook")
+    public static void ScheduledTriggerJavaVersionWithWebHook(
+            @TimerTrigger(
+                    name = "req",
+                    schedule = "0 0/1 * * * *") String timerInfo,
+            ExecutionContext executionContext) {
+        final Logger log = executionContext.getLogger();
+        log.info("Running scheduled trigger with web hook");
+        log.info("Timer info: " + timerInfo);
+    }
+
     private static String getJavaVersion() {
         return String.join(" - ", System.getProperty("java.home"), System.getProperty("java.version"));
     }
