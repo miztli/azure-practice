@@ -17,6 +17,11 @@ Navigate inside the created folder and search for `local.settings.json` and `hos
 
 ### Run function locally
 
+### Deploy function
+```shell
+mvn azure-functions:deploy
+```
+
 ```shell
 mvn clean package
 mvn azure-functions:run
