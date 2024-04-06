@@ -3,13 +3,13 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     scrape_interval: 3s
     static_configs:
-      - targets: [ 'http://api-service:8080' ]
+      - targets: [ 'api-service:8080' ]
         labels:
           application: 'API Service'
   - job_name: 'EmployeeServiceJob'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 3s
     static_configs:
-      - targets: [ 'http://employee-service:8082' ]
+      - targets: [ 'employee-service:8082' ]
         labels:
           application: 'Employee Service'
