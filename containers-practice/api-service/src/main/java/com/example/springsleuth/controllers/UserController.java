@@ -1,16 +1,19 @@
 package com.example.springsleuth.controllers;
 
 import com.example.springsleuth.model.Employee;
+import com.example.springsleuth.model.EmployeeList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/employee")
@@ -33,6 +36,12 @@ public class UserController {
         LOG.info("Creating new employee");
         final var requestEntity = new HttpEntity<>(employee);
         restTemplate.exchange("/employee", HttpMethod.POST, requestEntity, Void.class);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<EmployeeList> findEmployees() {
+        return restTemplate.getForEntity("/employee", EmployeeList.class);
     }
 
     @GetMapping(value = "/intensive")

@@ -1,11 +1,13 @@
 package com.example.springapplication.service;
 
 import com.example.springapplication.model.Employee;
+import com.example.springapplication.model.dto.EmployeeList;
 import com.example.springapplication.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -17,6 +19,10 @@ public class EmployeeService {
     @Transactional
     public Employee save(final Employee employee) {
         return employeeRepository.save(employee);
+    }
+
+    public EmployeeList findAll() {
+        return EmployeeList.from(employeeRepository.findAll());
     }
 
     /**
