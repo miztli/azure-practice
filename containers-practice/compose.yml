@@ -57,6 +57,25 @@ services:
       dockerfile: Dockerfile
     networks:
       - container-practice-network
+  prometheus:
+    image: prom/prometheus:v2.44.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - container-practice-network
+  grafana:
+      image: grafana/grafana:9.5.2
+      container_name: grafana
+      ports:
+        - "3000:3000"
+      restart: unless-stopped
+      volumes:
+        - ./grafana:/etc/grafana/provisioning/datasources
+      networks:
+        - container-practice-network
 networks:
   container-practice-network:
     driver: bridge
