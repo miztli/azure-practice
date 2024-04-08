@@ -6,6 +6,8 @@ The objective of this practice is to deploy a containerised microservice-based a
 - _The employee service_: Which is a REST service behind the _API_
 - _MySQL db_: Which will be accessed by the _employee_service_
 - _Zipkin server_: For distributing tracing
+- _Grafana server_: Visualization tool for building status dashboards using prometheus collected data as datasource. We can then create visualizations using PromQL queries
+- _Prometheus server_: For collecting data from vaious sources and storing them in a time-series DB. Provides an HTTP API for querying the metrics.
 - _Log analysis?_
 
 Deployment AC's:
@@ -30,3 +32,7 @@ Inspect health-check logs: `docker inspect --format "{{json .State.Health }}" co
 `docker-compose down`
 
 ### [Deploying app to azure cloud](azure-docs.md)
+
+#### Resources
+- [Monitoring spring-boot microservices with prometheus](https://medium.com/@bubu.tripathy/monitoring-spring-boot-microservices-with-prometheus-694dd22f8826)
+- [Spring production-ready metrics](https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/production-ready-metrics.html#production-ready-metrics-spring-mvc)
